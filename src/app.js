@@ -5,6 +5,7 @@ require("dotenv").config();
 const rootRoutes = require("./routes/rootRoutes");
 const authRoutes = require("./routes/authRoutes");
 const noteRoutes = require("./routes/noteRoutes");
+const taskRoutes = require("./routes/taskRoutes");
 
 // Initialize Express app
 const app = express();
@@ -23,6 +24,9 @@ app.use("/api/auth", authRoutes);
 
 // Notes routes (protected - requires authentication)
 app.use("/api/notes", noteRoutes);
+
+// Tasks routes (protected - requires authentication)
+app.use("/api/tasks", taskRoutes);
 
 // Health check endpoint (optional but recommended)
 app.get("/health", (req, res) => {
