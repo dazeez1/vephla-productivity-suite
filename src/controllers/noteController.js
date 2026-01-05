@@ -56,17 +56,47 @@ const createNote = async (req, res) => {
 
 /**
  * Get all notes owned by the authenticated user
- * GET /api/notes
+ * GET /api/notes?page=1&limit=10&tag=work
  */
 const getNotes = async (req, res) => {
   try {
-    // Find all notes owned by the authenticated user
-    const notes = await Note.find({ owner: req.user.id })
+    // Get query parameters
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const tag = req.query.tag;
+
+    // Build query filter (always filter by owner)
+    const query = { owner: req.user.id };
+
+    // Add tag filter if provided
+    if (tag) {
+      query.tags = tag; // MongoDB will match if tag exists in the tags array
+    }
+
+    // Calculate skip value for pagination
+    const skip = (page - 1) * limit;
+
+    // Get total count of notes matching the filter
+    const totalNotes = await Note.countDocuments(query);
+
+    // Calculate total pages
+    const totalPages = Math.ceil(totalNotes / limit);
+
+    // Find notes with pagination
+    const notes = await Note.find(query)
       .populate("owner", "name email")
-      .sort({ createdAt: -1 }); // Sort by newest first
+      .sort({ createdAt: -1 }) // Sort by newest first
+      .skip(skip)
+      .limit(limit);
 
     res.status(200).json({
       success: true,
+      pagination: {
+        totalNotes: totalNotes,
+        totalPages: totalPages,
+        currentPage: page,
+        limit: limit,
+      },
       count: notes.length,
       notes: notes,
     });
