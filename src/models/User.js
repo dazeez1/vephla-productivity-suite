@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 /**
  * User Schema
@@ -46,6 +47,38 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+/**
+ * Hash password before saving to database
+ * Only hashes if password is modified (new user or password update)
+ */
+userSchema.pre("save", async function (next) {
+  // Only hash the password if it has been modified (or is new)
+  if (!this.isModified("password")) {
+    return next();
+  }
+
+  try {
+    // Hash password with salt round of 10
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+  } catch (error) {
+    return next(error);
+  }
+});
+
+/**
+ * Instance method to compare password with hashed password
+ * Can be used during login to verify user credentials
+ */
+userSchema.methods.comparePassword = async function (candidatePassword) {
+  try {
+    return await bcrypt.compare(candidatePassword, this.password);
+  } catch (error) {
+    throw error;
+  }
+};
 
 /**
  * Create and export the User model
