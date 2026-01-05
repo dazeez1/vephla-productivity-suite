@@ -1,5 +1,7 @@
 const express = require("express");
 require("dotenv").config();
+const graphqlHTTP = require("express-graphql").graphqlHTTP;
+const schema = require("./graphql/schema");
 
 // Import routes
 const rootRoutes = require("./routes/rootRoutes");
@@ -31,6 +33,15 @@ app.use("/api/tasks", taskRoutes);
 
 // Files routes (protected - requires authentication)
 app.use("/api/files", fileRoutes);
+
+// GraphQL endpoint
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema: schema,
+    graphiql: true, // Enable GraphiQL interface
+  })
+);
 
 // Health check endpoint (optional but recommended)
 app.get("/health", (req, res) => {

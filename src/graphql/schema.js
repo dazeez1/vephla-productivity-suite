@@ -7,6 +7,7 @@ const {
   GraphQLEnumType,
   GraphQLNonNull,
 } = require("graphql");
+const resolvers = require("./resolvers");
 
 /**
  * Note Type
@@ -62,18 +63,12 @@ const RootQueryType = new GraphQLObjectType({
     getNotes: {
       type: new GraphQLList(NoteType),
       description: "Get all notes",
-      resolve: async () => {
-        // Resolver implementation will be added in resolvers
-        return [];
-      },
+      resolve: resolvers.Query.getNotes,
     },
     getTasks: {
       type: new GraphQLList(TaskType),
       description: "Get all tasks",
-      resolve: async () => {
-        // Resolver implementation will be added in resolvers
-        return [];
-      },
+      resolve: resolvers.Query.getTasks,
     },
   }),
 });
@@ -92,10 +87,7 @@ const RootMutationType = new GraphQLObjectType({
         content: { type: new GraphQLNonNull(GraphQLString) },
         tags: { type: new GraphQLList(GraphQLString) },
       },
-      resolve: async (parent, args) => {
-        // Resolver implementation will be added in resolvers
-        return null;
-      },
+      resolve: resolvers.Mutation.addNote,
     },
   }),
 });
