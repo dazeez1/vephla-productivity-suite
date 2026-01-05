@@ -6,6 +6,7 @@ const rootRoutes = require("./routes/rootRoutes");
 const authRoutes = require("./routes/authRoutes");
 const noteRoutes = require("./routes/noteRoutes");
 const taskRoutes = require("./routes/taskRoutes");
+const fileRoutes = require("./routes/fileRoutes");
 
 // Initialize Express app
 const app = express();
@@ -27,6 +28,9 @@ app.use("/api/notes", noteRoutes);
 
 // Tasks routes (protected - requires authentication)
 app.use("/api/tasks", taskRoutes);
+
+// Files routes (protected - requires authentication)
+app.use("/api/files", fileRoutes);
 
 // Health check endpoint (optional but recommended)
 app.get("/health", (req, res) => {
