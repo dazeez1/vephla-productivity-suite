@@ -4,6 +4,7 @@ require("dotenv").config();
 // Import routes
 const rootRoutes = require("./routes/rootRoutes");
 const authRoutes = require("./routes/authRoutes");
+const noteRoutes = require("./routes/noteRoutes");
 
 // Initialize Express app
 const app = express();
@@ -19,6 +20,9 @@ app.use("/", rootRoutes);
 
 // Authentication routes
 app.use("/api/auth", authRoutes);
+
+// Notes routes (protected - requires authentication)
+app.use("/api/notes", noteRoutes);
 
 // Health check endpoint (optional but recommended)
 app.get("/health", (req, res) => {
