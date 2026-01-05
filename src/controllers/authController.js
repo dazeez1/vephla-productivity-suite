@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const jwt = require("jsonwebtoken");
 
 /**
  * Register a new user
@@ -82,7 +83,107 @@ const registerUser = async (req, res) => {
   }
 };
 
+/**
+ * Login user and generate JWT token
+ * POST /api/auth/login
+ */
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Validate required fields
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide email and password",
+      });
+    }
+
+    // Find user by email and explicitly select password
+    // Password field has select: false, so we need to use .select('+password')
+    const user = await User.findOne({ email: email.toLowerCase() }).select(
+      "+password"
+    );
+
+    // Check if user exists
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid email or password",
+      });
+    }
+
+    // Check if user is active
+    if (!user.isActive) {
+      return res.status(403).json({
+        success: false,
+        message: "Account is deactivated. Please contact support.",
+      });
+    }
+
+    // Compare password using the comparePassword method
+    const isPasswordValid = await user.comparePassword(password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid email or password",
+      });
+    }
+
+    // Generate JWT token
+    const jwtSecret = process.env.JWT_SECRET;
+
+    if (!jwtSecret) {
+      console.error("JWT_SECRET is not defined in environment variables");
+      return res.status(500).json({
+        success: false,
+        message: "Server configuration error. Please contact support.",
+      });
+    }
+
+    // Create token payload
+    const tokenPayload = {
+      id: user._id,
+      email: user.email,
+      role: user.role,
+    };
+
+    // Generate token with 1 day expiration
+    const token = jwt.sign(tokenPayload, jwtSecret, {
+      expiresIn: "1d",
+    });
+
+    // Prepare user response without password
+    const userResponse = {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      avatar: user.avatar,
+      isActive: user.isActive,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    };
+
+    // Return success response with token and user details
+    res.status(200).json({
+      success: true,
+      message: "Login successful",
+      token: token,
+      user: userResponse,
+    });
+  } catch (error) {
+    console.error("Login error:", error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error. Please try again later.",
+    });
+  }
+};
+
 module.exports = {
   registerUser,
+  loginUser,
 };
 
