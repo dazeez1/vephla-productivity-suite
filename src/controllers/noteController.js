@@ -1,4 +1,5 @@
 const Note = require("../models/Note");
+const { getIO } = require("../sockets/socket");
 
 /**
  * Create a new note
@@ -26,6 +27,15 @@ const createNote = async (req, res) => {
 
     // Populate owner details
     await newNote.populate("owner", "name email");
+
+    // Emit real-time notification
+    const io = getIO();
+    if (io) {
+      io.emit("notification", {
+        type: "note_created",
+        message: `New note "${newNote.title}" created`,
+      });
+    }
 
     res.status(201).json({
       success: true,

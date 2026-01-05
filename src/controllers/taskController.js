@@ -1,4 +1,5 @@
 const Task = require("../models/Task");
+const { getIO } = require("../sockets/socket");
 
 /**
  * Create a new task
@@ -29,6 +30,15 @@ const createTask = async (req, res) => {
     // Populate assignedTo and createdBy details
     await newTask.populate("assignedTo", "name email");
     await newTask.populate("createdBy", "name email");
+
+    // Emit real-time notification for task assignment
+    const io = getIO();
+    if (io) {
+      io.emit("notification", {
+        type: "task_assigned",
+        message: `Task "${newTask.title}" assigned to you`,
+      });
+    }
 
     res.status(201).json({
       success: true,

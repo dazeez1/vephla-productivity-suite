@@ -1,6 +1,17 @@
 const { Server } = require("socket.io");
 const Message = require("../models/Message");
 
+// Store io instance for use in controllers
+let ioInstance = null;
+
+/**
+ * Get Socket.io instance
+ * @returns {Server} Socket.io server instance
+ */
+const getIO = () => {
+  return ioInstance;
+};
+
 /**
  * Initialize Socket.io server
  * @param {http.Server} server - HTTP server instance
@@ -103,8 +114,11 @@ const initSocket = (server) => {
     });
   });
 
+  // Store io instance
+  ioInstance = io;
+
   return io;
 };
 
-module.exports = initSocket;
+module.exports = { initSocket, getIO };
 
