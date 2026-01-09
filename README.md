@@ -119,11 +119,18 @@ JWT_SECRET=your_secret_key
 npm run dev
 ```
 
-## Deployment
+## Live Deployment
 
-The API will be deployed using Render or Railway.
+The backend API is deployed on Render.
 
-[Live API Link](https://your-deployment-url.here) - _Coming soon_
+**Base URL:**  
+https://vephla-productivity-suite.onrender.com
+
+### Services Available
+
+- REST API (`/api/*`)
+- GraphQL API (`/graphql`)
+- Real-time communication via Socket.io
 
 ## Documentation
 
