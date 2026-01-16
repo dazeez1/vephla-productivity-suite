@@ -1,0 +1,1092 @@
+{
+  "info": {
+    "_postman_id": "38989a5d-0677-427a-8f1e-1eb41939105a",
+    "name": "Vephla Productivity Suite API",
+    "description": "Postman collection for testing authentication, CRUD modules, file uploads, real-time backend, and GraphQL API.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "42991009"
+  },
+  "item": [
+    {
+      "name": "Auth - Register",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"testuser@example.com\",\n  \"password\": \"password123\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Auth - Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"testuser@example.com\",\n  \"password\": \"password123\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": [
+        {
+          "name": "Auth - Login",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"damilare@gmail.com\",\n  \"password\": \"password123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://vephla-productivity-suite.onrender.com/api/auth/login",
+              "protocol": "https",
+              "host": [
+                "vephla-productivity-suite",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Fri, 16 Jan 2026 15:09:04 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "394"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "9bee881aea9773dc-JNB"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "br"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"1f7-ui2k8A3+mV9j0ldukOyDHJb+viI\""
+            },
+            {
+              "key": "rndr-id",
+              "value": "e31eb97c-e0b5-4e25"
+            },
+            {
+              "key": "vary",
+              "value": "Accept-Encoding"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "x-render-origin-server",
+              "value": "Render"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": true,\n    \"message\": \"Login successful\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NmEzYzU5MjgxYjdlZWRjZWY5OTA5NyIsImVtYWlsIjoiZGFtaWxhcmVAZ21haWwuY29tIiwicm9sZSI6InN0YW5kYXJkIiwiaWF0IjoxNzY4NTc2MTQ0LCJleHAiOjE3Njg2NjI1NDR9.DHTT4Qg1h38pQD9ENfjaNmc5mcrfGvE8hhIHd3cELhQ\",\n    \"user\": {\n        \"id\": \"696a3c59281b7eedcef99097\",\n        \"name\": \"Damilare\",\n        \"email\": \"damilare@gmail.com\",\n        \"role\": \"standard\",\n        \"avatar\": null,\n        \"isActive\": true,\n        \"createdAt\": \"2026-01-16T13:25:45.438Z\",\n        \"updatedAt\": \"2026-01-16T13:25:45.438Z\"\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Notes - Create Note",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"My First Note\",\n  \"content\": \"This is a test note\",\n  \"tags\": [\"work\", \"test\"]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": [
+        {
+          "name": "Notes - Create Note",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"My First Note\",\n  \"content\": \"This is a note\",\n  \"tags\": [\"work\", \"test\"]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://vephla-productivity-suite.onrender.com/api/notes",
+              "protocol": "https",
+              "host": [
+                "vephla-productivity-suite",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "notes"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Fri, 16 Jan 2026 15:10:40 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "232"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "9bee8a76e85333e5-JNB"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "br"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"15a-OQt3qfXrYtnkoih8mc1tGn2Wyg8\""
+            },
+            {
+              "key": "rndr-id",
+              "value": "c241cc67-6c4e-40e4"
+            },
+            {
+              "key": "vary",
+              "value": "Accept-Encoding"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "x-render-origin-server",
+              "value": "Render"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": true,\n    \"message\": \"Note created successfully\",\n    \"note\": {\n        \"title\": \"My First Note\",\n        \"content\": \"This is a note\",\n        \"tags\": [\n            \"work\",\n            \"test\"\n        ],\n        \"owner\": {\n            \"_id\": \"696a3c59281b7eedcef99097\",\n            \"name\": \"Damilare\",\n            \"email\": \"damilare@gmail.com\"\n        },\n        \"_id\": \"696a54ef9ed36f818e294e32\",\n        \"createdAt\": \"2026-01-16T15:10:39.417Z\",\n        \"updatedAt\": \"2026-01-16T15:10:39.417Z\",\n        \"__v\": 0\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Notes - Get Notes (authorized)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": [
+        {
+          "name": "Notes - Get Notes (authorized)",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "https://vephla-productivity-suite.onrender.com/api/notes",
+              "protocol": "https",
+              "host": [
+                "vephla-productivity-suite",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "notes"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Fri, 16 Jan 2026 15:11:49 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "297"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "9bee8c286cbe33e5-JNB"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "br"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"2ab-LlXbNkhKJSYq+Iwhfts1AGIVWQw\""
+            },
+            {
+              "key": "rndr-id",
+              "value": "00d9b53f-d8fd-4f48"
+            },
+            {
+              "key": "vary",
+              "value": "Accept-Encoding"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "x-render-origin-server",
+              "value": "Render"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": true,\n    \"pagination\": {\n        \"totalNotes\": 2,\n        \"totalPages\": 1,\n        \"currentPage\": 1,\n        \"limit\": 10\n    },\n    \"count\": 2,\n    \"notes\": [\n        {\n            \"_id\": \"696a54ef9ed36f818e294e32\",\n            \"title\": \"My First Note\",\n            \"content\": \"This is a note\",\n            \"tags\": [\n                \"work\",\n                \"test\"\n            ],\n            \"owner\": {\n                \"_id\": \"696a3c59281b7eedcef99097\",\n                \"name\": \"Damilare\",\n                \"email\": \"damilare@gmail.com\"\n            },\n            \"createdAt\": \"2026-01-16T15:10:39.417Z\",\n            \"updatedAt\": \"2026-01-16T15:10:39.417Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"696a3c7d281b7eedcef9909a\",\n            \"title\": \"My First Note\",\n            \"content\": \"This is a test note\",\n            \"tags\": [\n                \"work\",\n                \"test\"\n            ],\n            \"owner\": {\n                \"_id\": \"696a3c59281b7eedcef99097\",\n                \"name\": \"Damilare\",\n                \"email\": \"damilare@gmail.com\"\n            },\n            \"createdAt\": \"2026-01-16T13:26:21.813Z\",\n            \"updatedAt\": \"2026-01-16T13:26:21.813Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Notes - Get Notes (unauthorized)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": [
+        {
+          "name": "Notes - Get Notes (unauthorized)",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://vephla-productivity-suite.onrender.com/api/notes",
+              "protocol": "https",
+              "host": [
+                "vephla-productivity-suite",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "notes"
+              ]
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Fri, 16 Jan 2026 15:12:05 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "57"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "9bee8c9159fe33e5-JNB"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "br"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"3f-y8SLTY/iIFOhV6YQ0m51m2/wHqo\""
+            },
+            {
+              "key": "rndr-id",
+              "value": "9078f960-0c86-4e29"
+            },
+            {
+              "key": "vary",
+              "value": "Accept-Encoding"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "x-render-origin-server",
+              "value": "Render"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": false,\n    \"message\": \"Access denied. No token provided.\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Tasks - Create Task",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Complete Capstone\",\n  \"description\": \"Finish Vephla project\",\n  \"assignedTo\": \"{{user_id}}\",\n  \"dueDate\": \"2026-01-15\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": [
+        {
+          "name": "Tasks - Create Task",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Complete Capstone\",\n  \"description\": \"Finish Vephla project\",\n  \"assignedTo\": \"{{user_id}}\",\n  \"dueDate\": \"2026-01-15\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://vephla-productivity-suite.onrender.com/api/tasks",
+              "protocol": "https",
+              "host": [
+                "vephla-productivity-suite",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "tasks"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Fri, 16 Jan 2026 15:12:49 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "291"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "9bee8d9e2bd133e5-JNB"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "br"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"1e9-z/QInHypiVPvDfJHd9BPqbKaPdU\""
+            },
+            {
+              "key": "rndr-id",
+              "value": "7e8b0052-af94-4f17"
+            },
+            {
+              "key": "vary",
+              "value": "Accept-Encoding"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "x-render-origin-server",
+              "value": "Render"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": true,\n    \"message\": \"Task created successfully\",\n    \"task\": {\n        \"title\": \"Complete Capstone\",\n        \"description\": \"Finish Vephla project\",\n        \"status\": \"pending\",\n        \"assignedTo\": {\n            \"_id\": \"6969628e9ead9e557a067865\",\n            \"name\": \"oluchi\",\n            \"email\": \"oluchi@gmail.com\"\n        },\n        \"createdBy\": {\n            \"_id\": \"696a3c59281b7eedcef99097\",\n            \"name\": \"Damilare\",\n            \"email\": \"damilare@gmail.com\"\n        },\n        \"dueDate\": \"2026-01-15T00:00:00.000Z\",\n        \"_id\": \"696a55709ed36f818e294e38\",\n        \"createdAt\": \"2026-01-16T15:12:48.661Z\",\n        \"updatedAt\": \"2026-01-16T15:12:48.661Z\",\n        \"__v\": 0\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Tasks - Get Tasks",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": [
+        {
+          "name": "Tasks - Get Tasks",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "https://vephla-productivity-suite.onrender.com/api/tasks",
+              "protocol": "https",
+              "host": [
+                "vephla-productivity-suite",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "tasks"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Fri, 16 Jan 2026 15:13:20 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "41"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "9bee8e60bdb033e5-JNB"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "br"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"25-I7V+ZVuDb9hHTXpQQNbdVGREzr0\""
+            },
+            {
+              "key": "rndr-id",
+              "value": "58446da7-dcb2-4b34"
+            },
+            {
+              "key": "vary",
+              "value": "Accept-Encoding"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "x-render-origin-server",
+              "value": "Render"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": true,\n    \"count\": 0,\n    \"tasks\": []\n}"
+        }
+      ]
+    },
+    {
+      "name": "Files - Upload File",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "./tests/fixtures/sample.pdf"
+            }
+          ]
+        },
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": [
+        {
+          "name": "Files - Upload File",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "/Users/drdrey/Desktop/vephla-productivity-suite/uploads/sample-1768258043586-27154011.pdf"
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://vephla-productivity-suite.onrender.com/api/files",
+              "protocol": "https",
+              "host": [
+                "vephla-productivity-suite",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "files"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Fri, 16 Jan 2026 15:13:53 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "254"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "9bee8f2d1e8c33e5-JNB"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "br"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"1ef-38U+CkC4hipdVoLHBzbI/jtNNds\""
+            },
+            {
+              "key": "rndr-id",
+              "value": "6698f69e-f6e2-46ee"
+            },
+            {
+              "key": "vary",
+              "value": "Accept-Encoding"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "x-render-origin-server",
+              "value": "Render"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": true,\n    \"message\": \"File uploaded successfully\",\n    \"file\": {\n        \"id\": \"696a55b09ed36f818e294e3d\",\n        \"filename\": \"sample-1768258043586-27154011-1768576432451-352840040.pdf\",\n        \"originalName\": \"sample-1768258043586-27154011.pdf\",\n        \"fileType\": \"application/pdf\",\n        \"url\": \"/uploads/sample-1768258043586-27154011-1768576432451-352840040.pdf\",\n        \"uploadedBy\": {\n            \"_id\": \"696a3c59281b7eedcef99097\",\n            \"name\": \"Damilare\",\n            \"email\": \"damilare@gmail.com\"\n        },\n        \"createdAt\": \"2026-01-16T15:13:52.454Z\",\n        \"updatedAt\": \"2026-01-16T15:13:52.454Z\"\n    }\n}"
+        }
+      ]
+    },
+    {
+      "name": "Files - Get Files",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": [
+        {
+          "name": "Files - Get Files",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "https://vephla-productivity-suite.onrender.com/api/files",
+              "protocol": "https",
+              "host": [
+                "vephla-productivity-suite",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "api",
+                "files"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Fri, 16 Jan 2026 15:14:18 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "290"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "9bee8fce0a7633e5-JNB"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "br"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"334-d3GD+trXxQPRYHyU2zNfQvcjVpI\""
+            },
+            {
+              "key": "rndr-id",
+              "value": "4cf5f21e-5971-4aae"
+            },
+            {
+              "key": "vary",
+              "value": "Accept-Encoding"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "x-render-origin-server",
+              "value": "Render"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": true,\n    \"count\": 2,\n    \"files\": [\n        {\n            \"_id\": \"696a55b09ed36f818e294e3d\",\n            \"filename\": \"sample-1768258043586-27154011-1768576432451-352840040.pdf\",\n            \"fileType\": \"application/pdf\",\n            \"url\": \"/uploads/sample-1768258043586-27154011-1768576432451-352840040.pdf\",\n            \"uploadedBy\": {\n                \"_id\": \"696a3c59281b7eedcef99097\",\n                \"name\": \"Damilare\",\n                \"email\": \"damilare@gmail.com\"\n            },\n            \"createdAt\": \"2026-01-16T15:13:52.454Z\",\n            \"updatedAt\": \"2026-01-16T15:13:52.454Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"696a3cdd281b7eedcef990a5\",\n            \"filename\": \"sample-1768258043765-463214924-1768570077786-384905199.pdf\",\n            \"fileType\": \"application/pdf\",\n            \"url\": \"/uploads/sample-1768258043765-463214924-1768570077786-384905199.pdf\",\n            \"uploadedBy\": {\n                \"_id\": \"696a3c59281b7eedcef99097\",\n                \"name\": \"Damilare\",\n                \"email\": \"damilare@gmail.com\"\n            },\n            \"createdAt\": \"2026-01-16T13:27:57.789Z\",\n            \"updatedAt\": \"2026-01-16T13:27:57.789Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "GraphQL - Get Notes",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \n  \"query\": \"{ getNotes { title tags createdAt } }\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": [
+        {
+          "name": "GraphQL - Get Notes",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \n  \"query\": \"{ getNotes { title tags createdAt } }\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://vephla-productivity-suite.onrender.com/graphql",
+              "protocol": "https",
+              "host": [
+                "vephla-productivity-suite",
+                "onrender",
+                "com"
+              ],
+              "path": [
+                "graphql"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Date",
+              "value": "Fri, 16 Jan 2026 15:14:51 GMT"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            },
+            {
+              "key": "Content-Length",
+              "value": "149"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            },
+            {
+              "key": "CF-RAY",
+              "value": "9bee909a487333e5-JNB"
+            },
+            {
+              "key": "Content-Encoding",
+              "value": "br"
+            },
+            {
+              "key": "etag",
+              "value": "W/\"1e8-Hwcoe/3WpRYcjb8kpCxrE3ZbBrA\""
+            },
+            {
+              "key": "rndr-id",
+              "value": "cb36c5ba-8e90-4bf7"
+            },
+            {
+              "key": "vary",
+              "value": "Accept-Encoding"
+            },
+            {
+              "key": "x-powered-by",
+              "value": "Express"
+            },
+            {
+              "key": "x-render-origin-server",
+              "value": "Render"
+            },
+            {
+              "key": "cf-cache-status",
+              "value": "DYNAMIC"
+            },
+            {
+              "key": "Server",
+              "value": "cloudflare"
+            },
+            {
+              "key": "alt-svc",
+              "value": "h3=\":443\"; ma=86400"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"data\": {\n        \"getNotes\": [\n            {\n                \"title\": \"My First Note\",\n                \"tags\": [\n                    \"work\",\n                    \"test\"\n                ],\n                \"createdAt\": \"1768576239417\"\n            },\n            {\n                \"title\": \"My Capstone Note\",\n                \"tags\": [\n                    \"work\",\n                    \"test\"\n                ],\n                \"createdAt\": \"1768573176541\"\n            },\n            {\n                \"title\": \"My First Note\",\n                \"tags\": [\n                    \"work\",\n                    \"test\"\n                ],\n                \"createdAt\": \"1768569981813\"\n            },\n            {\n                \"title\": \"My First Note\",\n                \"tags\": [\n                    \"work\",\n                    \"test\"\n                ],\n                \"createdAt\": \"1768514302182\"\n            },\n            {\n                \"title\": \"My First Note\",\n                \"tags\": [\n                    \"work\",\n                    \"test\"\n                ],\n                \"createdAt\": \"1768258520153\"\n            },\n            {\n                \"title\": \"My First Note\",\n                \"tags\": [\n                    \"work\",\n                    \"test\"\n                ],\n                \"createdAt\": \"1768258472541\"\n            }\n        ]\n    }\n}"
+        }
+      ]
+    }
+  ]
+}

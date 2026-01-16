@@ -105,16 +105,20 @@ const loginUser = async (req, res) => {
       "+password"
     );
 
-    // Check if user exists
+    // Debug: log found user
     if (!user) {
+      console.error('LOGIN: user not found for email', email.toLowerCase());
       return res.status(401).json({
         success: false,
         message: "Invalid email or password",
       });
+    } else {
+      console.log('LOGIN: found user id', user._id.toString());
     }
 
     // Check if user is active
     if (!user.isActive) {
+      console.error('LOGIN: user inactive', user._id.toString());
       return res.status(403).json({
         success: false,
         message: "Account is deactivated. Please contact support.",
@@ -124,7 +128,10 @@ const loginUser = async (req, res) => {
     // Compare password using the comparePassword method
     const isPasswordValid = await user.comparePassword(password);
 
+    console.log('LOGIN: password valid?', isPasswordValid);
+
     if (!isPasswordValid) {
+      console.error('LOGIN: invalid password for user', user._id.toString());
       return res.status(401).json({
         success: false,
         message: "Invalid email or password",

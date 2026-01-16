@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Socket.io Test</title>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  </head>
+  <body>
+    <h2>Socket.io Test</h2>
+    <input id="msg" placeholder="Type message" />
+    <button onclick="sendMessage()">Send</button>
+
+    <ul id="messages"></ul>
+
+    <script>
+      const socket = io("https://vephla-productivity-suite.onrender.com");
+
+      socket.on("connect", () => {
+        console.log("Connected:", socket.id);
+      });
+
+      socket.on("receiveMessage", (data) => {
+        const li = document.createElement("li");
+        li.textContent = data.message;
+        document.getElementById("messages").appendChild(li);
+      });
+
+      function sendMessage() {
+        const message = document.getElementById("msg").value;
+        socket.emit("sendMessage", { message });
+      }
+    </script>
+  </body>
+</html>
